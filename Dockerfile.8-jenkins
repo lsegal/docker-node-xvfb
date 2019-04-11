@@ -1,0 +1,8 @@
+FROM lsegal/node-xvfb:8
+LABEL Maintainer="Loren Segal <lsegal@soen.ca>"
+LABEL Description="Allows lsegal/node-xvfb:8 to be run by a Jenkins build agent."
+
+USER root
+RUN groupadd -g 2345 jenkins && useradd -m -u 2345 -g 2345 jenkins
+RUN apt-get install -y jq
+USER jenkins

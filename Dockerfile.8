@@ -1,0 +1,19 @@
+FROM node:8-stretch
+LABEL Maintainer="Loren Segal <lsegal@soen.ca>"
+LABEL Description="Isolates an environment with Node 8.x, Xvfb, and access to Chrome/Firefox browsers."
+
+USER root
+
+# Xvfb / Java
+RUN apt-get update && apt-get install -y default-jre xvfb
+
+# Install Google Chrome
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list
+RUN apt-get update && apt-get install -y google-chrome-stable
+
+# Install Firefox
+RUN apt-get update && apt-get install -y firefox-esr
+
+USER node
+ENTRYPOINT [ "node" ]
