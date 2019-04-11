@@ -15,5 +15,7 @@ RUN apt-get update && apt-get install -y google-chrome-stable
 # Install Firefox
 RUN apt-get update && apt-get install -y firefox-esr
 
+COPY ./docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 USER node
-ENTRYPOINT [ "node" ]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
